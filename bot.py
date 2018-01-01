@@ -173,7 +173,7 @@ while True:
 
             logging.info("Placing buy order for: " + currency + " amount: " + str(buyAmount) + " price: " + str(buyPrice))
             logging.info("Placing sell order for: " + currency + " amount: " + str(sellAmount) + " price: " + str(sellPrice))
-            loggin.info(exchange.create_order(token, 'limit', 'sell', sellAmount, sellPrice))
+            logging.info(exchange.create_order(token, 'limit', 'sell', sellAmount, sellPrice))
             logging.info(exchange.create_order(token, 'limit', 'buy', buyAmount, buyPrice))
         except:
             logging.info("Either API error or you're out of funds bra")
