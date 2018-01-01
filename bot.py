@@ -96,6 +96,7 @@ def post_slack(type, amount, price):
     logging.info("Attempting to send message...")
     sc = SlackClient(slackToken)
     text = type + " - " + currency + " Amount: " + amount + " Price:  " + price
+    logging.info(text)
     sc.api_call(
         "chat.postMessage",
         channel=slackChannel,
@@ -137,15 +138,12 @@ while True:
             try:
                 logging.info("Trying to send message...")
                 lastPrice = get_last_order_price(checkTime, history, trades)
-                logging.info(lastPrice)
                 lastAmount = get_last_order_amount(checkTime, history, trades)
-                logging.info(lastAmount)
                 orderType = get_last_order_type(checkTime, history, trades)
-                logging.info(orderType)
 
                 post_slack(orderType, lastAmount, lastPrice)
             except:
-                logging.info("Message send failed...")
+                logging.info("Message send failed or not configured...")
             buyPrice = determine_buy_price(float(lastPrice))
             sellPrice = determine_sell_price(float(lastPrice))
             logging.info("Placing buy order for: " + currency + " amount: " + str(buyAmount) + " price: " + str(buyPrice))
